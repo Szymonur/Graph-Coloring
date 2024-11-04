@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -53,20 +56,39 @@ vector<int> Graph::greedyColoring() {
 }
 
 int main() {
-    Graph g(5);
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 2);
-    g.addEdge(1, 3);
-    g.addEdge(2, 3);
-    g.addEdge(3, 4);
+    ifstream inputFile("tests.txt");
+    if (!inputFile) {
+        cerr << "Error with opening file tests.txt" << endl;
+        return 1;
+    }
+
+    int vertices;
+    inputFile >> vertices;
+    Graph g(vertices);
+
+    int u, v;
+    while (inputFile >> u >> v) {
+        g.addEdge(u - 1, v - 1);  // Zakładając, że wierzchołki są numerowane od 1
+    }
+
+    inputFile.close();
+
 
     vector<int> coloring = g.greedyColoring();
 
     cout << "Colors assigned to the vertices:\n";
     for (int i = 0; i < coloring.size(); ++i) {
-        cout << "Vertice " << i << ": color " << coloring[i] << endl;
+        cout << "Vertice " << i << ": color " << ++coloring[i] << "\n";
     }
+
+    int maxColor = *max_element(coloring.begin(), coloring.end()) + 1;
+    cout << "\nLiczba użytych kolorów: " << maxColor << endl;
 
     return 0;
 }
+
+// generowanie instancji 
+// oraz ich wczytywanie 
+
+
+// g++ -std=c++17  greedyAlgorithm.cpp -o greedyAlgorithm && ./greedyAlgorithm 
