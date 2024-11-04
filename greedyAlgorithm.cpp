@@ -56,9 +56,9 @@ vector<int> Graph::greedyColoring() {
 }
 
 int main() {
-    ifstream inputFile("tests.txt");
+    ifstream inputFile("./testCases/gc1000.txt");
     if (!inputFile) {
-        cerr << "Error with opening file tests.txt" << endl;
+        cerr << "Error with opening file" << endl;
         return 1;
     }
 
@@ -76,19 +76,12 @@ int main() {
 
     vector<int> coloring = g.greedyColoring();
 
-    cout << "Colors assigned to the vertices:\n";
-    for (int i = 0; i < coloring.size(); ++i) {
-        cout << "Vertice " << i << ": color " << ++coloring[i] << "\n";
-    }
 
     int maxColor = *max_element(coloring.begin(), coloring.end()) + 1;
     cout << "\nLiczba użytych kolorów: " << maxColor << endl;
 
     return 0;
 }
-
-// generowanie instancji 
-// oraz ich wczytywanie 
 
 
 // g++ -std=c++17  greedyAlgorithm.cpp -o greedyAlgorithm && ./greedyAlgorithm 
