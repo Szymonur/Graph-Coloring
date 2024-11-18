@@ -111,9 +111,9 @@ void tabuSearch(Graph& graph, int maxColors, int maxIterations, int initialTabuT
     }
 
     // Wyświetl kolorowanie
-    for (int v = 0; v < graph.V; v++) {
-        cout << "Wierzchołek " << v << " -> Kolor " << bestColor[v] << "\n";
-    }
+    // for (int v = 0; v < graph.V; v++) {
+    //     cout << "Wierzchołek " << v << " -> Kolor " << bestColor[v] << "\n";
+    // }
 
     // Oblicz i wyświetl liczbę użytych kolorów
     set<int> uniqueColors(bestColor.begin(), bestColor.end());
@@ -140,7 +140,7 @@ int main() {
     inputFile.close();
 
     // Parametry Tabu Search
-    int maxColors = 3;
+    int maxColors = 20;
     int maxIterations = 1000;
     int initialTabuTenure = 10;
 
