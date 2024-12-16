@@ -8,12 +8,10 @@
 #include <ctime>
 
 using namespace std;
-
-// Klasa reprezentująca graf
 class Graph {
 public:
-    int V; // Liczba wierzchołków
-    vector<vector<int>> adj; // Lista sąsiedztwa
+    int V; 
+    vector<vector<int>> adj;
 
     Graph(int V) {
         this->V = V;
@@ -35,10 +33,10 @@ int evaluate(const Graph& graph, const vector<int>& color) {
                 conflicts++;
         }
     }
-    return conflicts / 2; // Każdy konflikt jest liczony dwukrotnie
+    return conflicts / 2; // konflikt jest liczony dwukrotnie
 }
 
-// Tabu Search dla kolorowania grafu
+
 void tabuSearch(Graph& graph, int maxColors, int maxIterations, int initialTabuTenure) {
     srand(time(0));
 
@@ -71,7 +69,7 @@ void tabuSearch(Graph& graph, int maxColors, int maxIterations, int initialTabuT
                     }
                 }
             }
-            color[v] = originalColor; // Przywróć oryginalny kolor
+            color[v] = originalColor;
         }
 
         // Aktualizuj rozwiązanie
@@ -98,31 +96,23 @@ void tabuSearch(Graph& graph, int maxColors, int maxIterations, int initialTabuT
             }
         }
 
-        // Przerwij, jeśli nie ma konfliktów
         if (bestConflicts == 0)
             break;
     }
 
-    // Wyświetl wynik
     if (bestConflicts == 0) {
         cout << "Znaleziono rozwiązanie bez konfliktów." << endl;
     } else {
         cout << "Najlepsze znalezione rozwiązanie ma " << bestConflicts << " konfliktów." << endl;
     }
 
-    // Wyświetl kolorowanie
-    // for (int v = 0; v < graph.V; v++) {
-    //     cout << "Wierzchołek " << v << " -> Kolor " << bestColor[v] << "\n";
-    // }
-
-    // Oblicz i wyświetl liczbę użytych kolorów
     set<int> uniqueColors(bestColor.begin(), bestColor.end());
     cout << "\nLiczba użytych kolorów: " << uniqueColors.size() << endl;
 }
 
 int main() {
-    // Otwórz plik wejściowy
-    ifstream inputFile("./testCases/miles250.txt");
+
+    ifstream inputFile("./testCases/gc1000.txt");
     if (!inputFile) {
         cerr << "Błąd przy otwieraniu pliku" << endl;
         return 1;
@@ -134,17 +124,16 @@ int main() {
 
     int u, v;
     while (inputFile >> u >> v) {
-        graph.addEdge(u - 1, v - 1);  // Zakładając, że wierzchołki są numerowane od 1
+        graph.addEdge(u - 1, v - 1);  // wierzchołki są numerowane od 1
     }
 
     inputFile.close();
 
-    // Parametry Tabu Search
-    int maxColors = 20;
-    int maxIterations = 1000;
-    int initialTabuTenure = 10;
+    // Parametry 
+    int maxColors = 154;
+    int maxIterations = 2000;
+    int initialTabuTenure = 13;
 
-    // Wykonaj Tabu Search
     tabuSearch(graph, maxColors, maxIterations, initialTabuTenure);
 
     return 0;
